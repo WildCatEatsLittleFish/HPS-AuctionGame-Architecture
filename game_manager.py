@@ -115,10 +115,10 @@ class AuctionManager:
             # self.reset_players_timer() # start timer
             remain_times = self.get_player_remain_time()
             valid_players = self.get_valid_players()
-            # print("receive new round\n")
+            print("Waiting for bid offers...\n")
             next_bids = self.__server.receive_any(remain_times, valid_players)
-            # print("finish receiving \n")
-
+            
+            print("Deciding... \n")
             game_state = self.handle_bids(auction_round, next_bids)
             #game_state_bytes = bytes(json.dumps(game_state), 'utf-8')
 
