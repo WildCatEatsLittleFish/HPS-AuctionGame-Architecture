@@ -195,6 +195,11 @@ class AuctionManager:
                 received_time = bids[idx]['received_time']
                 elapse_time = (received_time - start_time).total_seconds()
                 bid_summary = bids[idx]['bid']
+                temp = bid_summary['bid_amount']
+                if temp < 0:
+                    bid_summary['bid_amount'] = 0
+                bid_summary['bid_amount'] = int(temp)
+                    
 
                 # handle timestamp checking
                 self.players[player_id]['remain_time'] -= elapse_time
