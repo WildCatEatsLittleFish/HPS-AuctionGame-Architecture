@@ -205,7 +205,7 @@ class AuctionManager:
 
                     # highest bidder or first bidder (if same bid amount)
                     if bid_amt > max_bid['amount'] or (bid_amt == max_bid['amount'] and max_bid['amount'] >= 0 and
-                                                               elapse_time < max_bid['received_time']):
+                                                               elapse_time < max_bid['elapse_time']):
                         max_bid['amount'] = bid_amt
                         max_bid['bidder'] = player_id
                         max_bid['elapse_time'] = elapse_time
