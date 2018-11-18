@@ -300,16 +300,16 @@ class AuctionManager:
             self.log('Player {} won {} on this round {} with bid amount {}.\n'.format(
                 state['bid_winner'], state['bid_item'], auction_round, state['winning_bid']))
 
-        self.log('Remaining time:')
+        self.log('Remaining time:\n')
         for idx in range(len(self.players)):
             if self.players[idx]['valid']:
-                self.log('\t{} has {} seconds remaining'
+                self.log('\t{} has {} seconds remaining\n'
                          .format(self.players[idx]['name'], self.players[idx]['remain_time']))
 
-        self.log('Remaining wealth:')
+        self.log('Remaining wealth:\n')
         for idx in range(len(self.players)):
             if self.players[idx]['valid']:
-                self.log('\t{} has {} dollars remaining'.format(self.players[idx]['name'], self.players[idx]['wealth']))
+                self.log('\t{} has {} dollars remaining\n'.format(self.players[idx]['name'], self.players[idx]['wealth']))
 
         self.log('------------------------------------\n')
 
