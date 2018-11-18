@@ -165,7 +165,7 @@ class AuctionManager:
             max_bid = dict()
             max_bid['amount'] = -1
             max_bid['bidder'] = None
-            max_bid['received_time'] = None
+            max_bid['elapse_time'] = -1
 
             bid_item = self.auction_items[auction_round]
             # Deal with invalid players for sorting bids
@@ -183,7 +183,7 @@ class AuctionManager:
                     bids[idx]['received_time'] = datetime.now()
                     continue
 
-            bids = sorted(bids, key = itemgetter('received_time'))
+#             bids = sorted(bids, key = itemgetter('received_time'))
             #print("sorted bids: ", bids)
             # Handle valid bidders in received order
             for idx in range(len(bids)):
@@ -193,21 +193,22 @@ class AuctionManager:
 
                 start_time = bids[idx]['start_time']
                 received_time = bids[idx]['received_time']
+                elapse_time = (received_time - start_time).total_seconds()
                 bid_summary = bids[idx]['bid']
 
                 # handle timestamp checking
-                self.players[player_id]['remain_time'] -= (received_time - start_time).total_seconds()
+                self.players[player_id]['remain_time'] -= elapse_time
 
                 if self.players[player_id]['wealth'] - bid_summary['bid_amount'] >= 0:
 
                     bid_amt = bid_summary['bid_amount']
 
                     # highest bidder or first bidder (if same bid amount)
-                    if bid_amt > max_bid['amount'] or (bid_amt == max_bid and max_bid['amount'] >= 0 and
-                                                               received_time < max_bid['received_time']):
+                    if bid_amt > max_bid['amount'] or (bid_amt == max_bid['amound'] and max_bid['amount'] >= 0 and
+                                                               elapse_time < max_bid['received_time']):
                         max_bid['amount'] = bid_amt
                         max_bid['bidder'] = player_id
-                        max_bid['received_time'] = received_time
+                        max_bid['elapse_time'] = elapse_time
 
                 else:
                     # invalid bid from player
